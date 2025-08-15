@@ -3,11 +3,10 @@ package com.daniel.Pieces;
 import com.daniel.enums.ColorPiece;
 
 public class Knight extends Piece {
-    
-    public Knight(ColorPiece colorPiece){
+
+    public Knight(ColorPiece colorPiece) {
         super(colorPiece);
     }
-
 
     // move-se duas casas na horizontal ou na
     // vertical e depois uma para o lado. O movimento
@@ -15,8 +14,7 @@ public class Knight extends Piece {
     // cavalo é a única peça que pode saltar sobre as
     // outras.
 
-    public boolean canMove(){
+    public boolean canMove() {
         return false;
     }
-
 }
