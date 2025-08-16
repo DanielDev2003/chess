@@ -1,20 +1,12 @@
 package com.daniel.Pieces;
 
+import com.daniel.Moves.MoveInL;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Player;
 
 public class Knight extends Piece {
 
-    public Knight(ColorPiece colorPiece) {
-        super(colorPiece);
-    }
-
-    // move-se duas casas na horizontal ou na
-    // vertical e depois uma para o lado. O movimento
-    // completo do cavalo forma um «L» sobre o tabuleiro. O
-    // cavalo é a única peça que pode saltar sobre as
-    // outras.
-
-    public boolean canMove() {
-        return false;
+    public Knight(int X, int Y, Player player, ColorPiece colorPiece) {
+        super("Knight", "k", player, Y, X, colorPiece, new MoveInL());
     }
 }
