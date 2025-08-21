@@ -1,18 +1,13 @@
 package com.daniel.Pieces;
 
+import com.daniel.Moves.MoveRook;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Player;
 
-public class Rook extends Piece{
-    
-    public Rook(ColorPiece colorPiece){
-        super(colorPiece);
-    }
+public class Rook extends Piece {
 
-    // move-se em linhas horizontais ou verticais
-    // quantas casas desejar desde que esteja livre. 
-    
-    public boolean canMove(){
-        return false;
+    public Rook(int X, int Y, Player player, ColorPiece colorPiece) {
+        super("Rook", "R", player, X, Y, colorPiece, new MoveRook());
     }
 
 }

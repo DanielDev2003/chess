@@ -13,6 +13,7 @@ public abstract class Piece {
     private boolean killed;
     private ColorPiece colorPiece;
     private final MoveStrategy moveStrategy;
+    private boolean hasMoved = false;
 
     public Piece(String name, String symbol, Player player, int x, int y, ColorPiece colorPiece,
             MoveStrategy moveStrategy) {
@@ -24,10 +25,12 @@ public abstract class Piece {
         this.moveStrategy = moveStrategy;
         this.killed = false;
         this.colorPiece = colorPiece;
+        this.hasMoved = false;
+
     }
 
     public boolean canMoveFor(int newX, int newY, Piece[][] board) {
-        return moveStrategy.canMove(this, positionX, positionY, newX, newY);
+        return moveStrategy.canMove(this, positionX, positionY, newX, newY, board);
     }
 
     public void moveFor(int newX, int newY) {
@@ -54,7 +57,7 @@ public abstract class Piece {
     public Player getPlayer() {
         return player;
     }
-    
+
     public boolean isKilled() {
         return killed;
     }
@@ -69,6 +72,10 @@ public abstract class Piece {
 
     public ColorPiece isWhite() {
         return ColorPiece.WHITE;
+    }
+
+    public boolean isFirstMove() {
+        return !this.hasMoved;
     }
 
     @Override

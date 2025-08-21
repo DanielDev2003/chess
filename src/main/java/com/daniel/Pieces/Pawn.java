@@ -1,21 +1,13 @@
 package com.daniel.Pieces;
 
+import com.daniel.Moves.MovePawn;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Player;
 
 public class Pawn extends Piece {
-    
-    public Pawn(ColorPiece colorPiece){
-        super(colorPiece);
-    }
 
-    //move-se sempre para frente, uma casa por vez,
-    // podendo em cada primeira jogada de cada peão
-    // escolher mover uma ou duas casas. O peão é a única
-    // peça que captura de forma diferente do seu
-    // movimento. Sua captura é na diagonal, uma casa por
-    // vez.
-    public boolean canMove(){
-        return false;
+    public Pawn(int X, int Y, Player player, ColorPiece colorPiece) {
+        super("Pawn", "P", player, X, Y, colorPiece, new MovePawn());
     }
 
 }

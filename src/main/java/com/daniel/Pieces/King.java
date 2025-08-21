@@ -1,17 +1,13 @@
 package com.daniel.Pieces;
 
+import com.daniel.Moves.MoveKing;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Player;
 
 public class King extends Piece {
 
-    public King(ColorPiece colorPiece){
-        super(colorPiece);
+    public King(int X, int Y, Player player, ColorPiece colorPiece) {
+        super("King", "K", player, X, Y, colorPiece, new MoveKing());
     }
 
-    // REI: move-se uma casa por vez em qualquer direção ou
-    // sentido.
-
-    public boolean canMove(){
-        return false;
-    }
 }
