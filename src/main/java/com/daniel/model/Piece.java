@@ -73,6 +73,10 @@ public abstract class Piece {
         return !this.hasMoved;
     }
 
+    public void removePiece(Piece piece){
+        player.removePiece(piece);
+    }
+
     @Override
     public String toString() {
         return String.format("%s (%s) - %s", name, symbol, colorPiece);

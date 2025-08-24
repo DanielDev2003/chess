@@ -1,7 +1,7 @@
 package com.daniel.Pieces;
 
-import com.daniel.Moves.MoveRook;
 import com.daniel.enums.ColorPiece;
+import com.daniel.interfaces.impl.Moves.MoveRook;
 import com.daniel.model.Piece;
 import com.daniel.model.Player;
 

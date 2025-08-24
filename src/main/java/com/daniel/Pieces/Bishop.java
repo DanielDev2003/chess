@@ -1,7 +1,7 @@
 package com.daniel.Pieces;
 
-import com.daniel.Moves.MoveBishop;
 import com.daniel.enums.ColorPiece;
+import com.daniel.interfaces.impl.Moves.MoveBishop;
 import com.daniel.model.Piece;
 import com.daniel.model.Player;
 

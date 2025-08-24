@@ -1,4 +1,4 @@
-package com.daniel.Moves;
+package com.daniel.interfaces.impl.Moves;
 
 import com.daniel.interfaces.MoveStrategy;
 import com.daniel.model.Piece;
