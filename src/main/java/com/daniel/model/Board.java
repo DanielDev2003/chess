@@ -20,17 +20,43 @@ public class Board {
 
     private void placePiecesForPlayer(Player player, ColorPiece color, int mainRow, int pawnRow) {
 
-        boardPieces[mainRow][0] = factory.createRook(mainRow, 0, player, color);
-        boardPieces[mainRow][1] = factory.createKnight(mainRow, 1, player, color);
-        boardPieces[mainRow][2] = factory.createBishop(mainRow, 2, player, color);
-        boardPieces[mainRow][3] = factory.createQueen(mainRow, 3, player, color);
-        boardPieces[mainRow][4] = factory.createKing(mainRow, 4, player, color);
-        boardPieces[mainRow][5] = factory.createBishop(mainRow, 5, player, color);
-        boardPieces[mainRow][6] = factory.createKnight(mainRow, 6, player, color);
-        boardPieces[mainRow][7] = factory.createRook(mainRow, 7, player, color);
+        Piece rook1 = factory.createRook(mainRow, 0, player, color);
+        boardPieces[mainRow][0] = rook1;
+        player.addPiece(rook1);
 
+        Piece knight1 = factory.createKnight(mainRow, 1, player, color);
+        boardPieces[mainRow][1] = knight1;
+        player.addPiece(knight1);
+
+        Piece bishop1 = factory.createBishop(mainRow, 2, player, color);
+        boardPieces[mainRow][2] = bishop1;
+        player.addPiece(bishop1);
+
+        Piece queen = factory.createQueen(mainRow, 3, player, color);
+        boardPieces[mainRow][3] = queen;
+        player.addPiece(queen);
+
+        Piece king = factory.createKing(mainRow, 4, player, color);
+        boardPieces[mainRow][4] = king;
+        player.addPiece(king);
+
+        Piece bishop2 = factory.createBishop(mainRow, 5, player, color);
+        boardPieces[mainRow][5] = bishop2;
+        player.addPiece(bishop2);
+
+        Piece knight2 = factory.createKnight(mainRow, 6, player, color);
+        boardPieces[mainRow][6] = knight2;
+        player.addPiece(knight2);
+
+        Piece rook2 = factory.createRook(mainRow, 7, player, color);
+        boardPieces[mainRow][7] = rook2;
+        player.addPiece(rook2);
+
+        // Peões
         for (int i = 0; i < 8; i++) {
-            boardPieces[pawnRow][i] = factory.createPawn(pawnRow, i, player, color);
+            Piece pawn = factory.createPawn(pawnRow, i, player, color);
+            boardPieces[pawnRow][i] = pawn;
+            player.addPiece(pawn);
         }
     }
 
@@ -64,6 +90,11 @@ public class Board {
     private void capturePiece(Piece target) {
         boardPieces[target.getPositionX()][target.getPositionY()] = null;
         target.getPlayer().removePiece(target);
+    }
+
+    public Piece getPieceAt(int x, int y) {
+        if (!isInsideBoardPiece(x, y)) return null;
+        return boardPieces[x][y];
     }
 
     public Piece[][] getBoardPieces() {

@@ -39,4 +39,7 @@ public class Player {
         pieces.clear();
     }
 
+    public Piece getPiece(int i){
+        return pieces.get(i);
+    }
 }

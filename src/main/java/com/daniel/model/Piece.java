@@ -65,8 +65,11 @@ public abstract class Piece {
         return colorPiece;
     }
 
-    public ColorPiece isWhite() {
-        return ColorPiece.WHITE;
+    public boolean isWhite() {
+        if(this.colorPiece == ColorPiece.WHITE){
+            return true;
+        }
+        return false;
     }
 
     public boolean isFirstMove() {

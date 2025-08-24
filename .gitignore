@@ -1,0 +1,14 @@
+# Ignorar arquivos compilados Java
+*.class
+
+# Ignorar diretórios de build
+/bin/
+/target/
+/out/
+
+/.idea/
+/.vscode/
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
