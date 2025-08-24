@@ -2,7 +2,7 @@ package com.daniel.interfaces.impl;
 
 import com.daniel.Pieces.Bishop;
 import com.daniel.Pieces.King;
-import com.daniel.Pieces.Knight;
+import com.daniel.Pieces.Horse;
 import com.daniel.Pieces.Pawn;
 import com.daniel.Pieces.Queen;
 import com.daniel.Pieces.Rook;
@@ -24,7 +24,7 @@ public class ChessPieceFactory implements PieceFactory {
 
     @Override
     public Piece createKnight(int x, int y, Player player, ColorPiece color) {
-        return new Knight(x, y, player, color);
+        return new Horse(x, y, player, color);
     }
 
     @Override

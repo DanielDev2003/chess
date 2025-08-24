@@ -5,9 +5,9 @@ import com.daniel.interfaces.impl.Moves.MoveKnight;
 import com.daniel.model.Piece;
 import com.daniel.model.Player;
 
-public class Knight extends Piece {
+public class Horse extends Piece {
 
-    public Knight(int X, int Y, Player player, ColorPiece colorPiece) {
-        super("Knight", "k", player, X, Y, colorPiece, new MoveKnight());
+    public Horse(int X, int Y, Player player, ColorPiece colorPiece) {
+        super("Horse", "H", player, X, Y, colorPiece, new MoveKnight());
     }
 }

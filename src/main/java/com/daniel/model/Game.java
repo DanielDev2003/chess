@@ -23,42 +23,36 @@ public class Game {
             
             boardView.exibir(board.getBoardPieces(), currentPlayer);
 
-            int startX = InputHandler.askX("Origem X: ");
-            int startY = InputHandler.askY("Origem Y: ");
+            int startX = InputHandler.askX("Choose the current part at position (X): ");
+            int startY = InputHandler.askY("Choose the current part at position (Y): ");
 
-            int endX = InputHandler.askX("Destino X: ");
-            int endY = InputHandler.askY("Destino Y: ");
+            int endX = InputHandler.askX("Choose the position you want to take the piece (X): ");
+            int endY = InputHandler.askY("Choose the position you want to take the piece (Y): ");
 
             Piece piece = board.getPieceAt(startX, startY);
 
             if (piece == null) {
-                System.out.println("Não existe peça nessa posição!");
+                System.out.println("There is no piece in that position!");
                 continue;
             }
-
-            System.out.println(piece);
-            System.out.println(piece.getPositionX());
-            System.out.println(piece.getPositionY());
-
             
             if (!piece.getPlayer().equals(currentPlayer)) {
-                System.out.println("Essa não é sua peça!");
+                System.out.println("This is not your play!");
                 continue;
             }
 
-            boolean moved = board.movePiece(piece, endX, endY);
-            if (!moved) {
+            if (!board.movePiece(piece, endX, endY)) {
                 continue; // jogador repete a jogada
             }
 
             currentPlayer = (currentPlayer == player1) ? player2 : player1;
 
         }
-        System.out.println("\nFim de jogo!");
+        System.out.println("\nEnd of game!");
         if (player1.hasPieces()) {
-            System.out.println("Vencedor: " + player1.getName());
+            System.out.println("Winner: " + player1.getName());
         } else {
-            System.out.println("Vencedor: " + player2.getName());
+            System.out.println("Loser: " + player2.getName());
         }
     }
 

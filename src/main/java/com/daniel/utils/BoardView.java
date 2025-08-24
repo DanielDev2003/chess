@@ -5,11 +5,10 @@ import com.daniel.model.Player;
 
 public class BoardView {
     public void exibir(Piece[][] board, Player player) {
-        System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        System.out.println("--- Chess ---");
-        System.out.println("turn : " + player.getName());
+        System.out.println("\n--- Chess ---\n");
+        System.out.println("Player: " + player.getName());
         System.out.println("\n     0   1   2   3   4   5   6   7  (X)");
         System.out.println("   +---+---+---+---+---+---+---+---+");
         for (int y = 7; y >= 0; y--) {
@@ -19,16 +18,17 @@ public class BoardView {
                 if (piece == null) {
                     System.out.print(" . |");
                 } else {
-                    String simbolo = piece.getSymbol();
-                    if (piece.getPlayer().getName().contains("Player 1")) {
-                        System.out.print(" " + simbolo.toUpperCase() + " |");
+                    String symbol = piece.getSymbol();
+                    if (piece.isWhite()) {
+                        System.out.print(" " + symbol.toUpperCase() + " |");
                     } else {
-                        System.out.print(" " + simbolo.toLowerCase() + " |");
+                        System.out.print(" " + symbol.toLowerCase() + " |");
                     }
                 }
             }
             System.out.println();
             System.out.println("   +---+---+---+---+---+---+---+---+");
         }
+        System.out.println("\n");
     }
 }

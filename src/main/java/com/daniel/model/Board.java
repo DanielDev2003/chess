@@ -66,12 +66,12 @@ public class Board {
 
     public boolean movePiece(Piece piece, int newX, int newY) {
         if (!isInsideBoardPiece(newX, newY)) {
-            System.out.println("Movimento inválido: fora do tabuleiro!");
+            System.out.println("Invalid move: off the board!");
             return false;
         }
 
         if (!piece.canMoveFor(newX, newY, boardPieces)) {
-            System.out.println("Movimento inválido para esta peça!");
+            System.out.println("Invalid move for this piece!");
             return false;
         }
 
@@ -90,6 +90,7 @@ public class Board {
     private void capturePiece(Piece target) {
         boardPieces[target.getPositionX()][target.getPositionY()] = null;
         target.getPlayer().removePiece(target);
+        System.out.println(String.format("\nPiece: %s  of the player: %s was captured", target.getName(), target.getPlayer().getName()));
     }
 
     public Piece getPieceAt(int x, int y) {
