@@ -2,8 +2,6 @@ package com.daniel.model;
 
 import java.util.ArrayList;
 
-import com.daniel.Pieces.Piece;
-
 public class Player {
     private String name;
     private ArrayList<Piece> pieces;

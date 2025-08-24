@@ -1,6 +1,7 @@
 package com.daniel.Moves;
 
-import com.daniel.Pieces.Piece;
+import com.daniel.interfaces.MoveStrategy;
+import com.daniel.model.Piece;
 
 public class MoveKing implements MoveStrategy {
     @Override

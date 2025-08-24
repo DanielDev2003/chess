@@ -1,7 +1,8 @@
 package com.daniel.Moves;
 
-import com.daniel.Pieces.Piece;
 import com.daniel.enums.ColorPiece;
+import com.daniel.interfaces.MoveStrategy;
+import com.daniel.model.Piece;
 
 public class MovePawn implements MoveStrategy {
 

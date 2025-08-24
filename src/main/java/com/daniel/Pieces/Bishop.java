@@ -2,6 +2,7 @@ package com.daniel.Pieces;
 
 import com.daniel.Moves.MoveBishop;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Piece;
 import com.daniel.model.Player;
 
 public class Bishop extends Piece {

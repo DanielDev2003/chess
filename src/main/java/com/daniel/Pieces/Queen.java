@@ -1,19 +1,14 @@
 package com.daniel.Pieces;
 
+import com.daniel.Moves.MoveQueen;
 import com.daniel.enums.ColorPiece;
+import com.daniel.model.Piece;
+import com.daniel.model.Player;
 
 public class Queen extends Piece {
+
+    public Queen(int X, int Y, Player player, ColorPiece colorPiece){
+        super("Queen", "Q", player, X, Y, colorPiece, new MoveQueen());
+    }
     
-    public Queen(ColorPiece colorPiece){
-        super(colorPiece);
-    }
-
-    // combina os movimentos do bispo e da torre:
-    // move-se quantas casas desejar nas retas
-    // horizontais, verticais e diagonais desde que
-    // estejam livres.
-
-    public boolean canMove(){
-        return false;
-    }
 }

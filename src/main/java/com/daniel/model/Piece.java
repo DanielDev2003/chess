@@ -1,18 +1,22 @@
-package com.daniel.Pieces;
+package com.daniel.model;
 
-import com.daniel.Moves.MoveStrategy;
 import com.daniel.enums.ColorPiece;
-import com.daniel.model.Player;
+import com.daniel.interfaces.MoveStrategy;
 
 public abstract class Piece {
+
     private final String name;
     private final String symbol;
+
     private int positionX;
     private int positionY;
+
     private final Player player;
-    private boolean killed;
+
     private ColorPiece colorPiece;
+
     private final MoveStrategy moveStrategy;
+    
     private boolean hasMoved = false;
 
     public Piece(String name, String symbol, Player player, int x, int y, ColorPiece colorPiece,
@@ -23,7 +27,6 @@ public abstract class Piece {
         this.positionX = x;
         this.positionY = y;
         this.moveStrategy = moveStrategy;
-        this.killed = false;
         this.colorPiece = colorPiece;
         this.hasMoved = false;
 
@@ -56,14 +59,6 @@ public abstract class Piece {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public boolean isKilled() {
-        return killed;
-    }
-
-    public void setKilled(boolean killed) {
-        this.killed = killed;
     }
 
     public ColorPiece getColorPiece() {
