@@ -5,28 +5,25 @@ import com.daniel.model.Piece;
 
 public class MoveRook implements MoveStrategy {
     @Override
-    public boolean canMove(Piece piece, int startX, int startY, int endX, int endY, Piece[][] board) {
-        if (startX == endX && startY == endY) {
+    public boolean canMove(Piece piece, int endX, int endY, Piece[][] board) {
+        if (piece.getPositionX() == endX && piece.getPositionY() == endY) {
             return false;
         }
 
-        if (startX != endX && startY != endY) {
-            return false;
-        }
-        if (startY == endY) {
-            int minX = Math.min(startX, endX);
-            int maxX = Math.max(startX, endX);
+        if (piece.getPositionY() == endY) {
+            int minX = Math.min(piece.getPositionX(), endX);
+            int maxX = Math.max(piece.getPositionX(), endX);
             for (int x = minX + 1; x < maxX; x++) {
-                if (board[x][startY] != null) {
+                if (board[x][piece.getPositionY()] != null) {
                     return false;
                 }
             }
         } else {
-            int minY = Math.min(startY, endY);
-            int maxY = Math.max(startY, endY);
+            int minY = Math.min(piece.getPositionY(), endY);
+            int maxY = Math.max(piece.getPositionY(), endY);
 
             for (int y = minY + 1; y < maxY; y++) {
-                if (board[startX][y] != null) {
+                if (board[piece.getPositionX()][y] != null) {
                     return false;
                 }
             }

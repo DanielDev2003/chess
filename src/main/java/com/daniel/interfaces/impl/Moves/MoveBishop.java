@@ -6,20 +6,20 @@ import com.daniel.model.Piece;
 public class MoveBishop implements MoveStrategy {
 
     @Override
-    public boolean canMove(Piece piece, int startX, int startY, int endX, int endY, Piece[][] board) {
-        if (startX == endX && startY == endY) {
+    public boolean canMove(Piece piece, int endX, int endY, Piece[][] board) {
+        if (piece.getPositionX() == endX && piece.getPositionY() == endY) {
             return false;
         }
 
-        if (Math.abs(startX - endX) != Math.abs(startY - endY)) {
+        if (Math.abs(piece.getPositionX() - endX) != Math.abs(piece.getPositionY() - endY)) {
             return false;
         }
 
-        int xDirection = (endX > startX) ? 1 : -1;
-        int yDirection = (endY > startY) ? 1 : -1;
+        int xDirection = (endX > piece.getPositionX()) ? 1 : -1;
+        int yDirection = (endY > piece.getPositionY()) ? 1 : -1;
 
-        int currentX = startX + xDirection;
-        int currentY = startY + yDirection;
+        int currentX = piece.getPositionX() + xDirection;
+        int currentY = piece.getPositionY() + yDirection;
 
         while (currentX != endX) {
             if (board[currentX][currentY] != null) {

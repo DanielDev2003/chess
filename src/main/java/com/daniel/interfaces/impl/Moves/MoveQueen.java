@@ -6,25 +6,25 @@ import com.daniel.model.Piece;
 public class MoveQueen implements MoveStrategy {
 
     @Override
-    public boolean canMove(Piece piece, int startX, int startY, int endX, int endY, Piece[][] board) {
+    public boolean canMove(Piece piece, int endX, int endY, Piece[][] board) {
 
-        if (startX == endX && startY == endY) {
+        if (piece.getPositionX() == endX && piece.getPositionY() == endY) {
             return false;
         }
 
         // movimento horizontal
-        if (startY == endY) {
-            return isPathClear(startX, startY, endX, endY, board);
+        if (piece.getPositionY() == endY) {
+            return isPathClear(piece.getPositionX(), piece.getPositionY(), endX, endY, board);
         }
 
         // movimento vertical
-        if (startX == endX) {
-            return isPathClear(startX, startY, endX, endY, board);
+        if (piece.getPositionX() == endX) {
+            return isPathClear(piece.getPositionX(), piece.getPositionY(), endX, endY, board);
         }
 
         // movimento diagonal
-        if (Math.abs(endX - startX) == Math.abs(endY - startY)) {
-            return isPathClear(startX, startY, endX, endY, board);
+        if (Math.abs(endX - piece.getPositionX()) == Math.abs(endY - piece.getPositionY())) {
+            return isPathClear(piece.getPositionX(), piece.getPositionY(), endX, endY, board);
         }
 
         // caso não seja reto nem diagonal → inválido

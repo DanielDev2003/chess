@@ -30,12 +30,17 @@ public class Game {
             int endY = InputHandler.askY("Destino Y: ");
 
             Piece piece = board.getPieceAt(startX, startY);
-    
+
             if (piece == null) {
                 System.out.println("Não existe peça nessa posição!");
                 continue;
             }
 
+            System.out.println(piece);
+            System.out.println(piece.getPositionX());
+            System.out.println(piece.getPositionY());
+
+            
             if (!piece.getPlayer().equals(currentPlayer)) {
                 System.out.println("Essa não é sua peça!");
                 continue;

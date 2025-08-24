@@ -8,6 +8,6 @@ import com.daniel.model.Player;
 public class Knight extends Piece {
 
     public Knight(int X, int Y, Player player, ColorPiece colorPiece) {
-        super("Knight", "k", player, Y, X, colorPiece, new MoveKnight());
+        super("Knight", "k", player, X, Y, colorPiece, new MoveKnight());
     }
 }

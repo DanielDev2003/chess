@@ -19,13 +19,15 @@ public abstract class Piece {
     
     private boolean hasMoved = false;
 
-    public Piece(String name, String symbol, Player player, int x, int y, ColorPiece colorPiece,
-            MoveStrategy moveStrategy) {
+    public Piece(String name, String symbol, Player player, int x, int y, ColorPiece colorPiece, MoveStrategy moveStrategy) {
+
         this.name = name;
         this.symbol = symbol;
         this.player = player;
+
         this.positionX = x;
         this.positionY = y;
+
         this.moveStrategy = moveStrategy;
         this.colorPiece = colorPiece;
         this.hasMoved = false;
@@ -33,7 +35,7 @@ public abstract class Piece {
     }
 
     public boolean canMoveFor(int newX, int newY, Piece[][] board) {
-        return moveStrategy.canMove(this, positionX, positionY, newX, newY, board);
+        return moveStrategy.canMove(this, newX, newY, board);
     }
 
     public void moveFor(int newX, int newY) {

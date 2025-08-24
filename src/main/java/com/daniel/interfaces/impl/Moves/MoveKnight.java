@@ -5,9 +5,12 @@ import com.daniel.model.Piece;
 
 public class MoveKnight implements MoveStrategy {
     @Override
-    public boolean canMove(Piece piece, int startX, int startY, int endX, int endY, Piece[][] board) {
-        int deltaX = Math.abs(startX - endX);
-        int deltaY = Math.abs(startY - endY);
+    public boolean canMove(Piece piece, int endX, int endY, Piece[][] board) {
+        System.out.println("posicao inicial X: " + piece.getPositionX() + " posical inicial Y: " + piece.getPositionY());
+        int deltaX = Math.abs(endX - piece.getPositionX());
+        System.out.println("Delta X: " + deltaX);
+        int deltaY = Math.abs(endY - piece.getPositionY());
+        System.out.println("Delta Y:" + deltaY);
 
         boolean isLShape = (deltaX == 1 && deltaY == 2) || (deltaX == 2 && deltaY == 1);
 
