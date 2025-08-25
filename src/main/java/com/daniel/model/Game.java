@@ -1,27 +1,35 @@
 package com.daniel.model;
 
+import com.daniel.enums.ColorPiece;
+import com.daniel.interfaces.GameObserver;
+import com.daniel.interfaces.impl.StateGameObserver;
 import com.daniel.utils.BoardView;
 import com.daniel.utils.InputHandler;
 
 public class Game {
     
-    private Board board = new Board();
-    BoardView boardView = new BoardView();
-    private Player player1;
-    private Player player2;
+    private final Board board = new Board();
+    private final BoardView boardView = new BoardView();
+    private Player whitePlayer;
+    private Player blackPlayer;
 
     public void run(){
 
-        player1 = new Player(InputHandler.askNamePlayerOne());
-        player2 = new Player(InputHandler.askNamePlayerTwo());
+        whitePlayer = new Player(InputHandler.askNamePlayerOne());
+        blackPlayer = new Player(InputHandler.askNamePlayerTwo());
 
-        board.positionPiece(player1, player2);
+        board.positionPiece(whitePlayer, blackPlayer);
 
-        Player currentPlayer = player1;
+        GameContext context = new GameContext(board, whitePlayer, blackPlayer);
+        GameObserver observer = new StateGameObserver();
+        context.addObserver(observer);
 
-        while (player1.hasPieces() && player2.hasPieces()) {
-            
+        while (!context.isFinished()) {
+
+            Player currentPlayer = context.getCurrentPlayer();
             boardView.exibir(board.getBoardPieces(), currentPlayer);
+
+            System.out.println("\n" + currentPlayer.getName() + " (" + (context.getCurrentColor() == ColorPiece.WHITE ? "Brancas" : "Negras") + "), faça seu movimento:");
 
             int startX = InputHandler.askX("Choose the current part at position (X): ");
             int startY = InputHandler.askY("Choose the current part at position (Y): ");
@@ -36,6 +44,9 @@ public class Game {
                 continue;
             }
             
+            System.out.println(piece.getName());
+            System.out.println("Posicao X: " + piece.getPositionX() + " Posicao Y: " + piece.getPositionY());
+
             if (!piece.getPlayer().equals(currentPlayer)) {
                 System.out.println("This is not your play!");
                 continue;
@@ -45,14 +56,17 @@ public class Game {
                 continue; // jogador repete a jogada
             }
 
-            currentPlayer = (currentPlayer == player1) ? player2 : player1;
+            context.notifyObservers();
+
+            if (!context.isFinished()) {
+                context.swapTurn(); // só troca se o jogo não terminou
+            }
 
         }
         System.out.println("\nEnd of game!");
-        if (player1.hasPieces()) {
-            System.out.println("Winner: " + player1.getName());
-        } else {
-            System.out.println("Loser: " + player2.getName());
+        System.out.println("Estado final: " + context.getState().getName());
+        if (context.getState().getName().equalsIgnoreCase("checkmate")) {
+            System.out.println("Vencedor: " + context.getCurrentPlayer().getName());
         }
     }
 

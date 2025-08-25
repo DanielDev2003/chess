@@ -1,8 +1,11 @@
 package com.daniel.model;
 
+import java.util.function.BooleanSupplier;
+
 import com.daniel.enums.ColorPiece;
 import com.daniel.interfaces.PieceFactory;
 import com.daniel.interfaces.impl.ChessPieceFactory;
+import com.daniel.interfaces.impl.StateGameObserver;
 
 public class Board {
 
@@ -20,44 +23,25 @@ public class Board {
 
     private void placePiecesForPlayer(Player player, ColorPiece color, int mainRow, int pawnRow) {
 
-        Piece rook1 = factory.createRook(mainRow, 0, player, color);
-        boardPieces[mainRow][0] = rook1;
-        player.addPiece(rook1);
+        // linha principal (y = mainRow)
+        boardPieces[mainRow][0] = add(player, factory.createRook(mainRow, 0, player, color));
+        boardPieces[mainRow][1] = add(player, factory.createKnight(mainRow, 1, player, color));
+        boardPieces[mainRow][2] = add(player, factory.createBishop(mainRow, 2, player, color));
+        boardPieces[mainRow][3] = add(player, factory.createQueen(mainRow, 3, player, color));
+        boardPieces[mainRow][4] = add(player, factory.createKing(mainRow, 4, player, color));
+        boardPieces[mainRow][5] = add(player, factory.createBishop(mainRow, 5, player, color));
+        boardPieces[mainRow][6] = add(player, factory.createKnight(mainRow, 6, player, color));
+        boardPieces[mainRow][7] = add(player, factory.createRook(mainRow, 7, player, color));
 
-        Piece knight1 = factory.createKnight(mainRow, 1, player, color);
-        boardPieces[mainRow][1] = knight1;
-        player.addPiece(knight1);
-
-        Piece bishop1 = factory.createBishop(mainRow, 2, player, color);
-        boardPieces[mainRow][2] = bishop1;
-        player.addPiece(bishop1);
-
-        Piece queen = factory.createQueen(mainRow, 3, player, color);
-        boardPieces[mainRow][3] = queen;
-        player.addPiece(queen);
-
-        Piece king = factory.createKing(mainRow, 4, player, color);
-        boardPieces[mainRow][4] = king;
-        player.addPiece(king);
-
-        Piece bishop2 = factory.createBishop(mainRow, 5, player, color);
-        boardPieces[mainRow][5] = bishop2;
-        player.addPiece(bishop2);
-
-        Piece knight2 = factory.createKnight(mainRow, 6, player, color);
-        boardPieces[mainRow][6] = knight2;
-        player.addPiece(knight2);
-
-        Piece rook2 = factory.createRook(mainRow, 7, player, color);
-        boardPieces[mainRow][7] = rook2;
-        player.addPiece(rook2);
-
-        // Peões
-        for (int i = 0; i < 8; i++) {
-            Piece pawn = factory.createPawn(pawnRow, i, player, color);
-            boardPieces[pawnRow][i] = pawn;
-            player.addPiece(pawn);
+        // peões (y = pawnRow)
+        for (int x = 0; x < 8; x++) {
+            boardPieces[pawnRow][x] = add(player, factory.createPawn(pawnRow, x, player, color));
         }
+    }
+
+    private Piece add(Player owner, Piece p) {
+        owner.addPiece(p);
+        return p;
     }
 
     public boolean isInsideBoardPiece(int x, int y) {
@@ -76,13 +60,33 @@ public class Board {
         }
 
         Piece target = boardPieces[newX][newY];
-        if (target != null && target.getPlayer() != piece.getPlayer()) {
-            capturePiece(target);
+
+        if (target != null && "King".equalsIgnoreCase(target.getName())) {
+            System.out.println("Movimento ilegal: você não pode capturar o rei adversário!");
+            return false;
         }
 
+        // Essa parte está criando uma nova instância da classe StateGameObserver no momento da execução.
+        // Mesmo que você nunca tenha guardado essa instância em uma variável, você pode usar ela imediatamente.
+        boolean ownKingInCheck = simulateMove(piece, newX, newY, () ->
+        new com.daniel.interfaces.impl.StateGameObserver() 
+            .isKingInCheck(piece.getColorPiece(), boardPieces)
+        );
+
+        if (ownKingInCheck) {
+            System.out.println("Movimento ilegal: seu rei ficaria em cheque!");
+            return false;
+        }
+
+        // ✔️ Executa o movimento real
         boardPieces[piece.getPositionX()][piece.getPositionY()] = null;
         boardPieces[newX][newY] = piece;
         piece.moveFor(newX, newY);
+
+        // ✔️ Captura a peça adversária (não sendo o rei, que já foi tratado acima)
+        if (target != null && target.getPlayer() != piece.getPlayer()) {
+            capturePiece(target);
+        }
 
         return true;
     }
@@ -102,4 +106,23 @@ public class Board {
         return boardPieces;
     }
 
+    public boolean simulateMove(Piece piece, int endX, int endY, BooleanSupplier check) {
+        int startX = piece.getPositionX();
+        int startY = piece.getPositionY();
+        Piece captured = boardPieces[endX][endY];
+
+        boardPieces[startX][startY] = null;
+        boardPieces[endX][endY] = piece;
+        piece.moveFor(endX, endY);
+
+        boolean result;
+        try {
+            result = check.getAsBoolean();
+        } finally {
+            piece.moveFor(startX, startY);
+            boardPieces[endX][endY] = captured;
+            boardPieces[startX][startY] = piece;
+        }
+        return result;
+    }
 }
