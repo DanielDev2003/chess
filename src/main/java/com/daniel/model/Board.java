@@ -5,7 +5,6 @@ import java.util.function.BooleanSupplier;
 import com.daniel.enums.ColorPiece;
 import com.daniel.interfaces.PieceFactory;
 import com.daniel.interfaces.impl.ChessPieceFactory;
-import com.daniel.interfaces.impl.StateGameObserver;
 
 public class Board {
 
@@ -24,18 +23,18 @@ public class Board {
     private void placePiecesForPlayer(Player player, ColorPiece color, int mainRow, int pawnRow) {
 
         // linha principal (y = mainRow)
-        boardPieces[mainRow][0] = add(player, factory.createRook(mainRow, 0, player, color));
-        boardPieces[mainRow][1] = add(player, factory.createKnight(mainRow, 1, player, color));
-        boardPieces[mainRow][2] = add(player, factory.createBishop(mainRow, 2, player, color));
-        boardPieces[mainRow][3] = add(player, factory.createQueen(mainRow, 3, player, color));
-        boardPieces[mainRow][4] = add(player, factory.createKing(mainRow, 4, player, color));
-        boardPieces[mainRow][5] = add(player, factory.createBishop(mainRow, 5, player, color));
-        boardPieces[mainRow][6] = add(player, factory.createKnight(mainRow, 6, player, color));
-        boardPieces[mainRow][7] = add(player, factory.createRook(mainRow, 7, player, color));
+        boardPieces[mainRow][0] = add(player, factory.createPiece("rook",mainRow, 0, player, color));
+        boardPieces[mainRow][1] = add(player, factory.createPiece("knight", mainRow, 1, player, color));
+        boardPieces[mainRow][2] = add(player, factory.createPiece("bishop",mainRow, 2, player, color));
+        boardPieces[mainRow][3] = add(player, factory.createPiece("queen", mainRow, 3, player, color));
+        boardPieces[mainRow][4] = add(player, factory.createPiece("king",mainRow, 4, player, color));
+        boardPieces[mainRow][5] = add(player, factory.createPiece("bishop",mainRow, 5, player, color));
+        boardPieces[mainRow][6] = add(player, factory.createPiece("knight", mainRow, 6, player, color));
+        boardPieces[mainRow][7] = add(player, factory.createPiece("rook", mainRow, 7, player, color));
 
         // peões (y = pawnRow)
         for (int x = 0; x < 8; x++) {
-            boardPieces[pawnRow][x] = add(player, factory.createPawn(pawnRow, x, player, color));
+            boardPieces[pawnRow][x] = add(player, factory.createPiece("pawn",pawnRow, x, player, color));
         }
     }
 
@@ -92,7 +91,7 @@ public class Board {
     }
 
     private void capturePiece(Piece target) {
-        boardPieces[target.getPositionX()][target.getPositionY()] = null;
+        //boardPieces[target.getPositionX()][target.getPositionY()] = null;
         target.getPlayer().removePiece(target);
         System.out.println(String.format("\nPiece: %s  of the player: %s was captured", target.getName(), target.getPlayer().getName()));
     }

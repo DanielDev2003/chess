@@ -17,6 +17,7 @@ public class GameContext {
 
     private Player currentPlayer;
     private Player opponent;
+    
     private ColorPiece currentColor;
     private ColorPiece opponentColor;
 

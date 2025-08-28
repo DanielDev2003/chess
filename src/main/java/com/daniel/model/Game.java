@@ -28,7 +28,7 @@ public class Game {
 
             Player currentPlayer = context.getCurrentPlayer();
             boardView.exibir(board.getBoardPieces(), currentPlayer);
-
+            
             System.out.println("\n" + currentPlayer.getName() + " (" + (context.getCurrentColor() == ColorPiece.WHITE ? "Brancas" : "Negras") + "), faça seu movimento:");
 
             int startX = InputHandler.askX("Choose the current part at position (X): ");
@@ -44,7 +44,7 @@ public class Game {
                 continue;
             }
             
-            System.out.println(piece.getName());
+            System.out.println(piece.getName() + "player: " + piece.getPlayer());
             System.out.println("Posicao X: " + piece.getPositionX() + " Posicao Y: " + piece.getPositionY());
 
             if (!piece.getPlayer().equals(currentPlayer)) {
